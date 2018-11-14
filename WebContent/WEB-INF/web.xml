@@ -14,17 +14,30 @@
         <welcome-file>default.htm</welcome-file>
         <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
+    <!-- 加载spring和mybatis的配置文件 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath*:config/applicationContext.xml</param-value>
     </context-param>
+    <!-- 使用ContextLoaderListener初始化Spring容器 -->
+    <!--若没有指定其他参数，默认查找的配置文件位置是：/WEB-INF/applicationContext.xml -->
+    <listener>
+        <description>Spring容器加载监听器</description>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>tpsp</servlet-name>
         <servlet-class>
             org.springframework.web.servlet.DispatcherServlet
         </servlet-class>
+        <init-param>
+            <description>spring MVC 配置文件路径</description>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring-mvc-servlet.xml</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <!-- Servlet访问的路径映射，所有的访问都必须经过调度用的前置控制器 -->
     <servlet-mapping>
         <servlet-name>tpsp</servlet-name>
         <url-pattern>/</url-pattern>
