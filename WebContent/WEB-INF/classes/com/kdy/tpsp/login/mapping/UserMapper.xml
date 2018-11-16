@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.kdy.tpsp.login.dao.IUserDao">
+      
+    <!--根据用户id查询用户 -->
+    <select id="queryUserById" parameterType="int" resultType="com.kdy.tpsp.login.model.User">
+        select user_id,user_name,user_password,user_email,user_telephone,user_address from tpsp_user_t where user_id=#{user_id}
+    </select>
+    
+    <!--新增用户 -->
+    <insert id="insertUser" parameterType="com.kdy.tpsp.login.model.User">
+        insert into tpsp_user_t(user_id,user_name,user_password,user_email,user_telephone,user_address, create_time) 
+        values(#{user_id},#{user_name},#{user_password},#{user_email},#{user_telephone},#{user_address},now());
+    </insert>
+    
+    <!--编辑用户 -->
+    <update id="updateUser" parameterType="com.kdy.tpsp.login.model.User">
+        update tpsp_user_t 
+        set user_name=#{user_name},user_password=#{user_password},user_email=#{user_email},
+        user_telephone=#{user_telephone},user_address=#{user_address} 
+        where user_id=#{user_id}
+    </update>
+    
+</mapper>
